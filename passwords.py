@@ -1,25 +1,10 @@
 import sqlite3
 
-connRoot = sqlite3.connect('rootpassword.db')
-cursorRoot = connRoot.cursor()
-
-cursorRoot.execute('''
-        SELECT password FROM root;
-    ''')
-for passwordRoot in cursorRoot.fetchall():
-    masterPassword = passwordRoot[0]
-
-loginPassword = input("Insira sua senha master: ")
-if loginPassword != masterPassword:
-    print("Senha inválida, encerrando ...")
-    connRoot.close()
-    exit()
-
 conn = sqlite3.connect('passwords.db')
 cursor = conn.cursor()
 
 cursor.execute('''
-    CREATE TABLE IF NOT EXISTS users (
+    CREATE TABLE IF NOT EXISTS services (
         service TEXT NOT NULL,
         username TEXT NOT NULL,
         password TEXT NOT NULL
