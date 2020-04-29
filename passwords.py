@@ -1,6 +1,6 @@
 import sqlite3
 
-conn = sqlite3.connect('passwords.db')
+conn = sqlite3.connect('services.db')
 cursor = conn.cursor()
 
 cursor.execute('''
@@ -21,7 +21,7 @@ def menu():
 
 def getPassword(service):
     cursor.execute("""
-        SELECT username, password FROM users
+        SELECT username, password FROM services
         WHERE service  = ?
     """, (service,))
 
@@ -33,14 +33,14 @@ def getPassword(service):
 
 def insertPassword(service, username, password):
     cursor.execute("""
-        INSERT INTO users (service, username, password)
+        INSERT INTO services (service, username, password)
         VALUES (?,?,?)
     """,(service,username,password))
     conn.commit()
 
 def show_services():
     cursor.execute('''
-        SELECT service FROM users;
+        SELECT service FROM services;
     ''')
     for service in cursor.fetchall():
         print(service)
